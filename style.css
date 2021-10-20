@@ -1,0 +1,216 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100%;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  background-size: fit;
+  font-size: 150%;
+  color: white;
+  font-family: "Georama", sans-serif;
+  overflow: hidden;
+}
+
+.mainCard {
+  width: 35%;
+  max-width: 400px;
+  min-height: 70%;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 10px 0 #f5414496;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.topBar {
+  user-select: none;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  padding: 0 2rem 0 2rem;
+  color: white;
+  position: absolute;
+}
+
+.header {
+  font-size: 2rem;
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+  user-select: none;
+  color: white;
+}
+
+img {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 10px 0 #f5414496;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  width: 5rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  margin: 0 0.5rem 1rem 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 10px 0 #f5414496;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.486);
+}
+.changeDiceImg {
+  width: 150px;
+  height: 150px;
+}
+.diceContainer {
+  display: flex;
+  justify-content: center;
+}
+.startText {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 1rem 0;
+}
+.winnerText {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 1rem 0;
+}
+.btnCont {
+  display: flex;
+  justify-content: center;
+}
+.paddingBottom {
+  margin: 0 0 1rem 0;
+}
+.boxShadow {
+  box-shadow: inset 20px 20px 60px #ffa6a9c7;
+  cursor: pointer;
+}
+.glassBox {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 10px 0 #f5414496;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* modal code starts */
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 10px 0 #f5414496;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.play {
+  height: 150px;
+  padding: 1rem 1.5rem 1rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 10px 0 #f5414496;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+}
+.play:hover {
+  background: rgba(255, 255, 255, 0.575);
+}
+.flex {
+  display: flex;
+}
+.listContainer {
+  width: 80%;
+  margin-left: 3%;
+  line-height: 1.5;
+}
+/* modal code ends */
+
+@media screen and (max-width: 850px) {
+  body {
+    font-size: 1.2rem;
+  }
+  .topBar {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 0 1rem 0 1rem;
+  }
+  .mainCard {
+    width: 90%;
+  }
+  .btn {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 0.5rem 1rem 0;
+  }
+}
+
+@media screen and (min-height: 800px) {
+  .topBar {
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-height: 580px) {
+  .mainCard {
+    min-height: 50vh;
+  }
+}
