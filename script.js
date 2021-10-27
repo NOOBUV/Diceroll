@@ -20,184 +20,159 @@ let changeTimeCheck = false;
 let Score = 0;
 throwDiceSound.volume = 0.2;
 rollingdice.volume = 0.2;
-const diceInfo = [
-  {
-    src: "dice1.png",
-    value: 1,
-  },
-  {
-    src: "dice2.png",
-    value: 2,
-  },
-  {
-    src: "dice3.png",
-    value: 3,
-  },
-  {
-    src: "dice4.png",
-    value: 4,
-  },
-  {
-    src: "dice5.png",
-    value: 5,
-  },
-  {
-    src: "dice6.png",
-    value: 6,
-  },
-];
+const diceInfo = ["dice1.png", "dice2.png", "dice3.png", "dice4.png", "dice5.png", "dice6.png"];
 
 // modal functioning
 function modalPopup() {
-  modal.style.display = "block";
+    modal.style.display = "block";
 }
 
 // Functions and Logic
 gameButton.addEventListener("click", () => {
-  modal.style.display = "none";
-  mainLoop();
+    modal.style.display = "none";
+    mainLoop();
 });
 
 gameButton.addEventListener("mousedown", () => {
-  item.classList.add("boxShadow");
-  setTimeout(() => {
-    item.classList.remove("boxShadow");
-  }, 600);
+    gameButton.classList.add("boxShadow");
+    setTimeout(() => {
+        gameButton.classList.remove("boxShadow");
+    }, 600);
 });
 
 gameButton.addEventListener("click", () => {
-  item.classList.remove("boxShadow");
+    gameButton.classList.remove("boxShadow");
 });
 
 function mainLoop() {
-  function changeTime() {
-    buttonStart = true;
-    var setTimeoutTime;
-    var counter = 3;
-    setTimeout(() => {
-      rollingdice.play();
-    }, 1700);
-    for (
-      setTimeoutTime = 1000;
-      setTimeoutTime <= 4000;
-      setTimeoutTime += 1000
-    ) {
-      setTimeout(() => {
-        loadText.innerText =
-          "The Dice will shuffle in " + counter-- + " seconds";
-        changeImg.setAttribute(
-          "src",
-          "https://cdn.dribbble.com/users/6059148/screenshots/14425859/media/3f67e0e620f3818a68a03fdb874b7a56.gif"
-        );
-      }, setTimeoutTime);
+    function shuffleTime() {
+        // Function Variables
+        let counter = 3;
+        let timing;
+
+        // Function Logic -- Running interval again and again
+
+
+        buttonCheck = true;
+
+        function time() {
+            rollingdice.play()
+
+            // loadText === shuffling time
+            loadText.innerText = "The dice will roll in " + counter-- + " seconds";
+
+            // Specifying If Condition to run this interval again and again after some breakTime;
+            if (counter < 0) {
+                throwDiceSound.play()
+
+                buttonCheck = false;
+                //  Do the Dice Roll
+                DiceRoll();
+
+                // Interval Part
+
+                clearInterval(timing) // Clearing Interval when counter is less than 0;
+                counter = 3;
+
+                // To get realisticness
+                setTimeout(() => {
+                    loadText.innerText = "Loading for the next Round!";
+                }, 1000);
+
+                // Creating setTimeout for little break;
+
+                setTimeout(() => {
+
+                    timing = setInterval(() => {
+                        buttonCheck = true;
+                        time()
+                    }, 1000);
+
+                }, 3000);
+
+                //  End of Interval Part
+
+                // creating a setTimeout for selectedVar.innerText 
+                setTimeout(() => {
+                    selectedVar.innerText = 0;
+                }, 1000);
+
+                // Check winner 
+                checkWinner()
+            }
+            workOfBtn() // Run the Btn Function
+
+        }
+        timing = setInterval(time, 1000);
+
     }
-    setTimeout(() => {
-      loadText.innerText = "Get Ready for next round";
-    }, 6000);
-    funcCheck = true;
-    return funcCheck;
-  }
-  setTimeout(changeTime, 2000);
 
-  let value;
 
-  function diceRoll() {
-    let diceRollSrc = "";
-    let randomNumber = Math.floor(
-      Math.floor(Math.random() * Object.values(diceInfo).length)
-    );
-    let randomDiceRoll = Object.values(diceInfo)[randomNumber];
-    throwDiceSound.play();
-    changeImg.setAttribute("src", "images/" + randomDiceRoll.src);
-    diceRollSrc += "images/" + randomDiceRoll.src;
-    console.log(diceRollSrc);
-    value = randomDiceRoll.value;
-    return value;
-  }
+    setTimeout(shuffleTime, 1000)
 
-  function checkIfCompleted() {
-    if (funcCheck) {
-      diceRoll();
-      allbtn.forEach((item) => {
-        item.style.pointerEvents = "auto";
-      });
+
+    let randomNumber;
+
+    function DiceRoll() {
+
+        // Only for DiceRoll Purpose
+        let randomNumber = Math.floor(Math.floor(Math.random() * diceInfo.length)); // Getting the Random Number from the img object
+        let randomDiceRoll = diceInfo[randomNumber]; // Getting the whole object that is given by the Random Number
+        changeImg.setAttribute("src", "images/" + randomDiceRoll); // Setting the DiceRoll object src into img src  
+        return randomNumber
+
     }
-  }
-  // 3000 + 6000 = 9000
-  // run both changeTime and check function repeatedly through setTimout and increment the time after it's completed
-  var seconds = 5000;
 
-  function gameLoop() {
-    function changeTimeLoop() {
-      setInterval(() => {
-        changeTime();
-      }, seconds);
-      changeTimeCheck = true;
+    function workOfBtn() {
+
+        if (buttonCheck == true) { // Check if the BtnCheck is true
+            btnStyleNone("auto")
+            allbtn.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    selectedVar.innerText = btn.innerText;
+                })
+
+                if (selectedVar.innerText === btn.innerText) {
+                    btnStyleNone("none")
+                }
+            })
+
+        } else if (!buttonCheck) { // Check if the BtnCheck is false
+            btnStyleNone("none");
+        }
+        return selectedVar.innerText;
+
     }
-    changeTimeLoop();
 
-    function checkLoop() {
-      setInterval(() => {
-        checkIfCompleted();
-        checkWinner();
-        setTimeout(() => {
-          selectedVar.innerText = 0;
-        }, 200);
-      }, seconds);
+    function btnStyleNone(type) { // Function to concise the code for BtnWork function
+        allbtn.forEach(item => {
+            item.style.cursor = "pointer";
+            item.style.pointerEvents = type;
+            item.style.userSelect = type;
+        })
     }
-    if (changeTimeCheck) {
-      checkLoop();
+
+
+    function checkWinner() {
+        let diceRollNumber = Number(DiceRoll()) + 1;
+        if (Number(workOfBtn()) == diceRollNumber) {
+            Score += 1;
+            score.innerText = Score;
+            DecideText.innerText = "Nice! You Won";
+        } else if (selectedVar.innerText == 0) {
+            DecideText.innerText = "You didn't choose anything! It was " + diceRollNumber;
+        } else {
+            DecideText.innerText = "You Lost! The Number was " + diceRollNumber;
+        }
     }
-  }
-  setTimeout(gameLoop, 2000);
 
-  function buttonWork() {
-    if (buttonStart) {
-      allbtn.forEach((item) => {
-        item.addEventListener("click", () => {
-          selectedVar.innerText = item.innerText;
-          allbtn.forEach((item) => {
-            item.style.pointerEvents = "none";
-
-            setTimeout(() => {
-              item.style.pointerEvents = "auto";
-            }, 5000);
-          });
+    allbtn.forEach((item) => {
+        item.addEventListener("mousedown", () => {
+            item.classList.add("boxShadow");
         });
-      });
-    } else {
-      allbtn.forEach((item) => {
+
         item.addEventListener("click", () => {
-          allbtn.forEach((item) => {
-            item.style.pointerEvents = "auto";
-          });
+            item.classList.remove("boxShadow");
         });
-      });
-    }
-
-    return selectedVar.innerText;
-  }
-  setInterval(buttonWork, 2000);
-
-  function checkWinner() {
-    if (Number(buttonWork()) == value) {
-      Score += 1;
-      score.innerText = Score;
-      DecideText.innerText = "Nice! You Won";
-    } else if (selectedVar.innerText == 0) {
-      DecideText.innerText = "You didn't choose anything!";
-    } else {
-      DecideText.innerText = "You Lost! The number was " + value;
-    }
-  }
-
-  allbtn.forEach((item) => {
-    item.addEventListener("mousedown", () => {
-      item.classList.add("boxShadow");
     });
-
-    item.addEventListener("click", () => {
-      item.classList.remove("boxShadow");
-    });
-  });
 }
