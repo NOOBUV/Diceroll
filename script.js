@@ -65,7 +65,7 @@ function mainLoop() {
       rollingdice.play();
       changeImg.setAttribute(
         "src",
-        "https://cdn.dribbble.com/users/6059148/screenshots/14425859/media/3f67e0e620f3818a68a03fdb874b7a56.gif%22"
+        "https://cdn.dribbble.com/users/6059148/screenshots/14425859/media/3f67e0e620f3818a68a03fdb874b7a56.gif"
       );
 
       // loadText === shuffling time
